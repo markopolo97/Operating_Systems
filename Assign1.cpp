@@ -11,7 +11,7 @@
 using namespace std;
 
 
-class StringPool
+/*class StringPool
 {
     struct StringReference {
         char *buffer;
@@ -98,10 +98,10 @@ class StringPool
         Allocated = newAllocated;
     }
     
-};
+};*/
 
 
-/*int main() {
+int main() {
     
     string dictionary[15] = {   "FIRST",
                                 "CPP",
@@ -128,10 +128,10 @@ class StringPool
     
     for(int i=0; i<1024; i++){
         // randomly assign capital letter
-        cout << documents[i] << "\n";
+        cout << "documents[" << i << "] = " << documents[i] << "\n";
     }
     
     
     return 0;
     
-}*/
+}
