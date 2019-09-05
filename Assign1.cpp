@@ -10,100 +10,19 @@
 #include <iostream>
 using namespace std;
 
+// Declare Constants and Globals
 
-/*class StringPool
-{
-    struct StringReference {
-        char *buffer;
-        time_t created;
-    } *Pool;
-    
-    size_t PoolSize;
-    size_t Allocated;
-    
-    static const size_t INITIAL_SIZE = 1024;
-    
-    void GrowBuffer()
-    {
-        StringReference *newPool = new StringReference[PoolSize * 2];
-        for (size_t i = 0; i < Allocated; ++i)
-        newPool[i] = Pool[i];
-        StringReference *oldPool = Pool;
-        Pool = newPool;
-        delete[] oldPool;
-    }
-    
-    public:
-    
-    StringPool() : Pool(new StringReference[INITIAL_SIZE]), PoolSize(INITIAL_SIZE)
-    {
-    }
-    
-    ~StringPool()
-    {
-        ClearPool();
-        delete[] Pool;
-    }
-    
-    char *GetBuffer(size_t size)
-    {
-        if (Allocated == PoolSize)
-        GrowBuffer();
-        Pool[Allocated].buffer = new char[size];
-        Pool[Allocated].buffer = time(NULL);
-        ++Allocated;
-    }
-    
-    void ClearPool()
-    {
-        for (size_t i = 0; i < Allocated; ++i)
-        delete[] Pool[i].buffer;
-        Allocated = 0;
-    }
-    
-    void ClearBefore(time_t knownCleared)
-    {
-        size_t newAllocated = 0;
-        for (size_t i = 0; i < Allocated; ++i)
-        {
-            if (Pool[i].created < knownCleared)
-            {
-                delete[] Pool[i].buffer;
-            }
-            else
-            {
-                Pool[newAllocated] = Pool[i];
-                ++newAllocated;
-            }
-        }
-        Allocated = newAllocated;
-    }
-    
-    // This compares pointers, not strings!
-    void ReleaseBuffer(char *knownCleared)
-    {
-        size_t newAllocated = 0;
-        for (size_t i = 0; i < Allocated; ++i)
-        {
-            if (Pool[i].buffer == knownCleared)
-            {
-                delete[] Pool[i].buffer;
-            }
-            else
-            {
-                Pool[newAllocated] = Pool[i];
-                ++newAllocated;
-            }
-        }
-        Allocated = newAllocated;
-    }
-    
-};*/
+const int   DOC_SIZE = 1024, POINTER = 128, MAX_MEM = 3000000, MIN_MEM = 2000000;
 
+struct library {
+    string doc;
+};
 
-int main() {
-    
-    string dictionary[15] = {   "FIRST",
+struct recent_list {
+    string doc;
+};
+
+string dictionary[15] = {       "FIRST",
                                 "CPP",
                                 "REVIEW",
                                 "PROGRAM",
@@ -117,21 +36,65 @@ int main() {
                                 "MAC",
                                 "LINUX",
                                 "WINDOWS",
-                                "LAB"   };
+                                "LAB"       };
+
+
+int main()
+{
+    // declare main variables
+    library lib_document[DOC_SIZE];
+    recent_list rl_document[POINTER];
+    recent_list* ptr;
+    ptr = rl_document;
+    int mem_size;
     
-    string documents[1024];
-    
-    for(int i=0; i<1024; i++){
-        // randomly assign capital letter
-        documents[i] = rand() % 25 + 'A';
+    // Initialize 1024 documents for library
+    for(int i=0; i<DOC_SIZE; i++)
+    {
+        // Choose memory size between 2MB and 3MB randomly
+        // char = 1 byte -> 1 MB = 1,000,000 bytes
+        mem_size = (rand() > RAND_MAX/2) ? MIN_MEM : MAX_MEM;
+        for(int j=0; j<mem_size; j++)
+        {
+            lib_document[i].doc += rand() % 25 + 'A'; // pick randomly from A-Z
+        }
     }
     
-    for(int i=0; i<1024; i++){
-        // randomly assign capital letter
-        cout << "documents[" << i << "] = " << documents[i] << "\n";
+    // Initialize 128 documents for recent_list
+    for(int i=0; i<POINTER; i++)
+    {
+        // Choose memory size between 2MB and 3MB randomly
+        // char = 1 byte -> 1 MB = 1,000,000 bytes
+        mem_size = (rand() > RAND_MAX/2) ? MIN_MEM : MAX_MEM;
+        for(int j=0; j<mem_size; j++)
+        {
+            rl_document[i].doc += rand() % 25 + 'A'; // pick randomly from A-Z
+        }
     }
     
     
-    return 0;
     
+    
+    
+    
+    return 0; // terminate program
+    
+}
+
+void SearchWord(char text[], char word[])
+{/*
+    int i=0, c=0;
+    while (text[i]!='\0')
+    {
+        if (text[i]==word[c] && word[c]!='\0' && text[i]!=' ')
+            c++;
+        else
+            c=0;
+        
+        i++;
+    }
+    if (c==sizeof(word))
+        cout<<"\nWord found"<<endl;
+    else
+        cout<<"\nWord not found"<<endl;*/
 }
