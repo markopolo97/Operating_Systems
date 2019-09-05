@@ -1,14 +1,24 @@
 //
 //  CECS 326 Assignment 1: Programming Review
-//  main.cpp
+//  Assign1.cpp
 //  Assign1_ProgramReview file
 //
 //  Created by Mark Aquiapao on 9/2/19.
 //  Copyright © 2019 Mark Aquiapao. All rights reserved.
 //
+//  Rev A by Mark Aquaiapo
+//  Date: 9/5/2019
+//  Description: Redid initialization for library & recent list.
+//               Added function for finding keyword in document.
 
 #include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
 using namespace std;
+
+// Prototypes:
+bool SearchWord(string, string);
 
 // Declare Constants and Globals
 
@@ -23,20 +33,20 @@ struct recent_list {
 };
 
 string dictionary[15] = {       "FIRST",
-                                "CPP",
-                                "REVIEW",
-                                "PROGRAM",
-                                "ASSIGNMENT",
-                                "CECS",
-                                "BEACH",
-                                "ECS",
-                                "FALL",
-                                "SPRING",
-                                "OS",
-                                "MAC",
-                                "LINUX",
-                                "WINDOWS",
-                                "LAB"       };
+    "CPP",
+    "REVIEW",
+    "PROGRAM",
+    "ASSIGNMENT",
+    "CECS",
+    "BEACH",
+    "ECS",
+    "FALL",
+    "SPRING",
+    "OS",
+    "MAC",
+    "LINUX",
+    "WINDOWS",
+    "LAB"       };
 
 
 int main()
@@ -46,7 +56,8 @@ int main()
     recent_list rl_document[POINTER];
     recent_list* ptr;
     ptr = rl_document;
-    int mem_size;
+    string key;
+    int mem_size, count;
     
     // Initialize 1024 documents for library
     for(int i=0; i<DOC_SIZE; i++)
@@ -72,29 +83,32 @@ int main()
         }
     }
     
+    cout << "Enter keyword from dictionary: ";
+    cin >> key;
     
+    count = 0;
+    for(int i=0; i<DOC_SIZE; i++)
+    {
+        if(SearchWord(lib_document[i].doc, key)==false)
+        {
+            count++;
+        }
+    }
     
-    
+    if(count==0)
+        cout << key << ": " << count << " document(s) ejected \n";
+    else
+        cout << key << ": " << count << " document(s) ejected and reinitialized \n";
     
     
     return 0; // terminate program
     
 }
 
-void SearchWord(char text[], char word[])
-{/*
-    int i=0, c=0;
-    while (text[i]!='\0')
-    {
-        if (text[i]==word[c] && word[c]!='\0' && text[i]!=' ')
-            c++;
-        else
-            c=0;
-        
-        i++;
-    }
-    if (c==sizeof(word))
-        cout<<"\nWord found"<<endl;
-    else
-        cout<<"\nWord not found"<<endl;*/
+bool SearchWord(string document, string key)
+{
+    bool found = false;
+    if(document.find(key) != string::npos)
+        found = true;
+    return found;
 }
