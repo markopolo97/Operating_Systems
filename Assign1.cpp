@@ -72,6 +72,9 @@ int main()
     int mem_size, count;
     int rl_memSize[POINTER];
     
+    cout << "Welcome to Assignment 1 of CECS 326! \n\n";
+    cout << "Documents in library are initializing... \n";
+    
     // Initialize 1024 documents for library
     for(int i=0; i<DOC_SIZE; i++)
     {
@@ -83,6 +86,8 @@ int main()
             lib_document[i].doc += rand() % 25 + 'A'; // pick randomly from A-Z
         }
     }
+    
+    cout << "Documents in recent list are initializing... \n\n";
     
     // Initialize 128 documents for recent_list
     for(int i=0; i<POINTER; i++)
