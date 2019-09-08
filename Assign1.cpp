@@ -8,7 +8,7 @@
  Created by Mark Aquiapao on 9/2/2019.
  Copyright © 2019 Mark Aquiapao. All rights reserved.
  
- Rev A by Mark Aquaiapo on 9/5/2019
+ Rev A by Mark Aquiapao on 9/5/2019
  Description: Redid initialization for library & recent list.
  Added function for finding keyword in document.
  
@@ -105,9 +105,9 @@ int main()
         // Check if Key is in Dictionary
         do
         {
-            for(int i=0; i<15; i++)
+            for(int i=0; i<16; i++)
             {
-                if(SearchWord(dictionary[i], key) == true)
+                if(SearchWord(dictionary[i], key) != true)
                 {
                     valid = true;
                 }
@@ -157,6 +157,7 @@ int main()
                 (ptr+(POINTER-1))->rl_doc = rl_temp;
             }
         }
+        cout << "\n";
         
         if(count==0)
             cout << key << ": " << count << " document(s) ejected \n";
