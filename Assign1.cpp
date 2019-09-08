@@ -70,6 +70,7 @@ int main()
     string key;
     bool valid = false; bool quit = false;
     int mem_size, count;
+    int rl_memSize[POINTER];
     
     // Initialize 1024 documents for library
     for(int i=0; i<DOC_SIZE; i++)
@@ -88,8 +89,8 @@ int main()
     {
         // Choose memory size between 2MB and 3MB randomly
         // char = 1 byte -> 1 MB = 1,000,000 bytes
-        mem_size = (rand() > RAND_MAX/2) ? MIN_MEM : MAX_MEM;
-        for(int j=0; j<mem_size; j++)
+        rl_memSize[i] = (rand() > RAND_MAX/2) ? MIN_MEM : MAX_MEM;
+        for(int j=0; j<rl_memSize[i]; j++)
         {
             (ptr+i)->rl_doc += rand() % 25 + 'A'; // pick randomly from A-Z
         }
@@ -97,6 +98,7 @@ int main()
     
     do
     {
+        valid = false;
         
         cout << "Dictionary: FIRST, CPP, REVIEW, PROGRAM, ASSIGNMENT, CECS, BEACH, ECS,\n";
         cout << "            FALL, SPRING, OS, MAC, LINUX, WINDOWS, LAB \n\n";
@@ -107,12 +109,8 @@ int main()
         {
             for(int i=0; i<16; i++)
             {
-                if(SearchWord(dictionary[i], key) != true)
-                {
+                if(key==dictionary[i])
                     valid = true;
-                }
-                else
-                    valid = false;
             }
             if(valid == false)
             {
@@ -126,12 +124,11 @@ int main()
         {
             if(SearchWord((ptr+pos)->rl_doc, key)==false)
             { // For all documents that do NOT match keyword:
-                cout << "Document ejected...Please wait...\n";
+                cout << "Document [" << count << "] ejected...Please wait...\n";
                 count++; // document found, increment count
                 
-                // Save document from library and recent list that will be swapped
-                string rl_temp = (ptr+pos)->rl_doc; // Save ejected recent list document
                 string lib_temp = lib_document[0].doc; // Save first document from library
+                int temp_memSize = rl_memSize[pos]; // Save size of ejected doc from recent list
                 
                 // Eject document from recent list and shift other documents
                 for(int i=pos; i<POINTER; i++)
@@ -152,9 +149,13 @@ int main()
                 }
                 
                 
-                // Insert swapped, ejected documents to end of library and recent list
-                lib_document[DOC_SIZE-1].doc = lib_temp;
-                (ptr+(POINTER-1))->rl_doc = rl_temp;
+                // Reinitialized last library document with same size as ejected document
+                // Insert swapped 1st document of library to end of recent list
+                for(int j=0; j<temp_memSize; j++)
+                {
+                    lib_document[DOC_SIZE-1].doc += rand() % 25 + 'A'; // pick randomly from A-Z
+                }
+                (ptr+(POINTER-1))->rl_doc = lib_temp;
             }
         }
         cout << "\n";
