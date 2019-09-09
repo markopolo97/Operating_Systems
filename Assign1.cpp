@@ -146,7 +146,7 @@ int main()
             // For all documents that do NOT match keyword:
             if(SearchWord((ptr+pos)->rl_doc, key)==false)
             {
-                cout << "Document [" << count << "] ejected...Please wait...\n";
+                cout << "Document [" << pos << "] ejected...\n";
                 count++; // document found, increment count
                 
                 string lib_temp = lib_document[0].doc;  // Save first document from library
