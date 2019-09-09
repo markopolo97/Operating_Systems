@@ -19,6 +19,10 @@
  and recent list structures if a document in relecent list
  does not match.
  Added logic to verify entry in dictionary and revised display.
+ 
+ * Rev C by Mark Aquiapao on 9/9/2019
+ Description: Revised GUI(Termninal) to be user friendly and simple.
+ 
  ---------------------------------------------------------------------------
  Performance of Software on 9/8/2019:
  - CPU: 71%-99%
@@ -79,7 +83,10 @@ int main()
     int mem_size, count;
     int rl_memSize[POINTER];
     
-    cout << "Welcome to Assignment 1 of CECS 326! \n\n";
+    cout << "\n";
+    cout << "************************************\n";
+    cout << "Welcome to Assignment 1 of CECS 326!\n";
+    cout << "************************************\n\n";
     cout << "Documents in library are initializing... \n";
     
     // Initialize 1024 documents for library
@@ -111,8 +118,10 @@ int main()
     do
     {
         valid = false;
+        cout << "----------------------------------------------------------------------\n";
         cout << "Dictionary: FIRST, CPP, REVIEW, PROGRAM, ASSIGNMENT, CECS, BEACH, ECS,\n";
-        cout << "            FALL, SPRING, OS, MAC, LINUX, WINDOWS, LAB \n\n";
+        cout << "            FALL, SPRING, OS, MAC, LINUX, WINDOWS, LAB \n";
+        cout << "----------------------------------------------------------------------\n\n";
         cout << "Enter keyword from dictionary: ";
         cin >> key;
         // Check if Key is in Dictionary
@@ -130,6 +139,7 @@ int main()
             }
         }while(valid==false);
         
+        cout << "\n";
         count = 0;
         for(int pos=0; pos<POINTER; pos++)
         {
@@ -170,17 +180,25 @@ int main()
                 (ptr+(POINTER-1))->rl_doc = lib_temp;
             }
         }
-        cout << "\n";
         
+        cout << "----------------------------------------------------------------------\n";
         if(count==0)
             cout << key << ": " << count << " document(s) ejected \n";
         else
-            cout << key << ": " << count << " document(s) ejected and reinitialized \n\n";
+            cout << key << ": " << count << " document(s) ejected and reinitialized \n";
+        cout << "----------------------------------------------------------------------\n\n\n";
         
         cout << "Quit program? (Y/N): ";
         cin >> key;
         if(key=="Y" || key=="y")
+        {
+            cout << "\n";
+            cout << "************************************\n";
+            cout << "Program Terminated... \n";
+            cout << "Goodbye! \n";
+            cout << "************************************\n\n";
             quit = true;
+        }
         else
             quit = false;
     }while(quit==false);
